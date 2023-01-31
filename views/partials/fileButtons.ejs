@@ -1,0 +1,16 @@
+<div>
+  <button onclick="writeFile()">Write message.txt</button>
+  <button onclick="deleteFile()">Delete message.txt</button>
+</div>
+<script>
+  function writeFile() {
+    fetch("/fs/writeFile", { method: "post" }).then((response) => {
+      console.log(response);
+    });
+  }
+  function deleteFile() {
+    fetch("/fs/deleteFile", { method: "delete" }).then((response) => {
+      console.log(response);
+    });
+  }
+</script>
