@@ -1,43 +1,44 @@
 <div>
-    <p class="h2">Current demo folder</p>
-    <p class="h5">Here is the object representing the folder and its content : </p>
-    <span id="objectDirectories"></span>
-    <p class="h5 mt-4">Here is a representation you might prefer :</p>
-    <span id="architecture"></span>
-    <button class="ms-4" onclick="displayDirectory()">Refresh</button>
+  <p class="h2">Current demo folder</p>
+  <p class="h5">Here is the object representing the folder and its content :</p>
+  <span id="objectDirectories"></span>
+  <p class="h5 mt-4">Here is a representation you might prefer :</p>
+  <span id="architecture"></span>
+  <button class="ms-4" onclick="displayDirectory()">Refresh</button>
 </div>
 <script>
-    function displayDirectory(){
-        fetch('/fs/directories').then((response)=>{
-        response.json().then(async(data)=>{
-            console.log(data.data)
-            document.getElementById('objectDirectories').innerText=JSON.stringify(data.data)
-            let architectureContent=''
-            
-            async function printDir(content,indent){
-                console.log(indent)
-                for(let i=0;i<content.length;i++){
-                    
-                    if(typeof(content[i])==="object"){
-                        let keys=[]
-                        keys=Object.keys(content[i])
-                        architectureContent+= "\n"+('--'.repeat(indent+1))+ keys[0]
-                        console.log(i,content[i][keys[0]])
-                        await printDir(content[i][keys[0]],indent+1)
-                    } else{
-                        architectureContent+= '\n'+('--'.repeat(indent+2))+content[i]
-                        console.log(content[i])
-                    }
-                }
-                
-            }
-            printDir(data.data,0).then(()=>{
-                console.log(architectureContent)
-                document.getElementById("architecture").innerText=architectureContent
-            })
-        })
-    })
-    }
-    displayDirectory()
+  function displayDirectory() {
+    fetch("/fs/directories").then((response) => {
+      response.json().then(async (data) => {
+        console.log(data.data);
+        document.getElementById("objectDirectories").innerText = JSON.stringify(
+          data.data
+        );
+        let architectureContent = "";
 
-</script> 
+        async function printDir(content, indent) {
+          console.log(indent);
+          for (let i = 0; i < content.length; i++) {
+            if (typeof content[i] === "object") {
+              let keys = [];
+              keys = Object.keys(content[i]);
+              architectureContent += "\n" + "--".repeat(indent + 1) + keys[0];
+              console.log(i, content[i][keys[0]]);
+              await printDir(content[i][keys[0]], indent + 1);
+            } else {
+              architectureContent +=
+                "\n" + "--".repeat(indent + 2) + content[i];
+              console.log(content[i]);
+            }
+          }
+        }
+        printDir(data.data, 0).then(() => {
+          console.log(architectureContent);
+          document.getElementById("architecture").innerText =
+            architectureContent;
+        });
+      });
+    });
+  }
+  displayDirectory();
+</script>
