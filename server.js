@@ -1,13 +1,15 @@
-const http = require('node:http');
-const fs = require('node:fs');
 const express = require('express');
 const app = express();
-const {readFile} = require('node:fs/promises')
 const fileRoutes = require('./routes/file.route')
+const centralRoutes= require('./routes/central.route')
 
-app.use('/api',fileRoutes)
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
-const port = process.env.PORT || 5000;
+app.use('/',centralRoutes)
+app.use('/fs',fileRoutes)
+
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
