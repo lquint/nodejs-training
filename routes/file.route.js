@@ -8,20 +8,8 @@ const { resolve } = require('path');
 router.get('/', (req,res)=>{
     res.render('pages/files');
 });
+const fileController = require('../controllers/fileController')
 
-router.get('/directories', async(req,res)=>{
-    res.setHeader('Content-Type', 'application/json');
-    async function getFiles(dir) {
-        const dirents = await readdir(dir, { withFileTypes: true });
-        const files = await Promise.all(dirents.map(async(dirent) => {
-          const res = resolve(dir, dirent.name);
-          return dirent.isDirectory() ? {[dirent.name]: await getFiles(res)} : dirent.name;
-        }));
-        return files.flat();
-      }
-     const files = await getFiles(path.resolve(__dirname, '../views'))
-     res.json({data:files})
-     res.end()
-})
+router.get('/directories',fileController.getFiles )
 
 module.exports = router;
