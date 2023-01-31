@@ -21,13 +21,13 @@ exports.getFiles = async (req, res) => {
   res.end();
 };
 
-exports.writeFile = (req,res) => {
-    const targetPath=resolve(__dirname, "../demoFolder/message.txt")
-    fs.writeFile(targetPath,"Hello Node.js",'utf-8',()=>{})
-    res.end()
-}
+exports.writeFile = (req, res) => {
+  const targetPath = resolve(__dirname, "../demoFolder/message.txt");
+  fs.writeFile(targetPath, "Hello Node.js", "utf-8", () => {});
+  res.end();
+};
 
-exports.deleteFile = (req,res) => {
-    const targetPath=resolve(__dirname, "../demoFolder/message.txt")
-    fs.unlink(targetPath,()=>{})
-}
+exports.deleteFile = (req, res) => {
+  const targetPath = resolve(__dirname, "../demoFolder/message.txt");
+  fs.unlink(targetPath, () => {});
+};
