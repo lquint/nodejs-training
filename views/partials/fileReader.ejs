@@ -1,0 +1,11 @@
+<div>
+  <button onclick="readFile()" class="btn primary">Read demo.txt</button>
+  <p id="fileContent"></p>
+</div>
+<script>
+  async function readFile() {
+    const res = await fetch("/fs/read");
+    const content = await res.text();
+    document.getElementById("fileContent").innerText = content;
+  }
+</script>
