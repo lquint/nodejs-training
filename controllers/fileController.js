@@ -1,5 +1,5 @@
 const fs = require("node:fs");
-const { readdir } = require("fs/promises");
+const { readdir, readFile } = require("fs/promises");
 const { resolve } = require("path");
 
 exports.getFiles = async (req, res) => {
@@ -31,3 +31,14 @@ exports.deleteFile = (req, res) => {
   const targetPath = resolve(__dirname, "../demoFolder/message.txt");
   fs.unlink(targetPath, () => {});
 };
+
+exports.readFile = async (req,res) => {
+  try{
+    const filePath = resolve('./demoFolder/demo.txt');
+    const contents = await readFile(filePath, { encoding: 'utf8' });
+    console.log(contents);
+    res.end(contents)
+  } catch(err){
+    console.log(err)
+  }
+}
