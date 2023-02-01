@@ -36,7 +36,6 @@ exports.readFile = async (req,res) => {
   try{
     const filePath = resolve('./demoFolder/demo.txt');
     const contents = await readFile(filePath, { encoding: 'utf8' });
-    console.log(contents);
     res.end(contents)
   } catch(err){
     console.log(err)
