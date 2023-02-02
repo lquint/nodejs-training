@@ -1,0 +1,25 @@
+<form action="/fs/writeCustomFile" method="post">
+    <label>Path (example : /folder1/file2.txt </label>
+    <input id="path" type="text" name="path"/>
+    <label>Content</label>
+    <input id="content" type="text" name="content"/>
+    <button type="button" onclick="writeCustomFile()">Submit</button>
+</form>
+<script>
+    async function writeCustomFile(){
+        const customPath=document.getElementById("path").value
+        const content= document.getElementById("content").value
+        const res = await fetch("/fs/writeCustomFile", {
+            method:"POST",
+            headers: {
+                Accept: 'application.json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                path:customPath,
+                content:content
+            })
+        })
+        console.log(res)
+    }
+</script>
