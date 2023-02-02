@@ -32,12 +32,24 @@ exports.deleteFile = (req, res) => {
   fs.unlink(targetPath, () => {});
 };
 
-exports.readFile = async (req,res) => {
-  try{
-    const filePath = resolve('./demoFolder/demo.txt');
-    const contents = await readFile(filePath, { encoding: 'utf8' });
-    res.end(contents)
-  } catch(err){
-    console.log(err)
+exports.readFile = async (req, res) => {
+  try {
+    const filePath = resolve("./demoFolder/demo.txt");
+    const contents = await readFile(filePath, { encoding: "utf8" });
+    res.end(contents);
+  } catch (err) {
+    console.log(err);
   }
-}
+};
+exports.writeCustomFile = (req, res) => {
+  try {
+    console.log(req.body);
+    const filePath = resolve(`./demoFolder${req.body.path}`);
+    console.log(filePath);
+    fs.writeFile(filePath, req.body.content, "utf-8", () => {});
+    res.end();
+  } catch (err) {
+    res.status(500).send(new Error(err));
+    res.end();
+  }
+};
