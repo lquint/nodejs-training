@@ -10,6 +10,7 @@ router.get("/directories", fileController.getFiles);
 
 router.post("/writeFile", fileController.writeFile);
 router.delete("/deleteFile", fileController.deleteFile);
-router.get("/read", fileController.readFile)
+router.get("/read", fileController.readFile);
+router.post("/writeCustomFile",fileController.writeCustomFile);
 
 module.exports = router;
